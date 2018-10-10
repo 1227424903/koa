@@ -4,12 +4,10 @@
   "description": "koa2+mysql",
   "scripts": {
     "init_sql": "node ./src/sql/index.js",
-    "dev": "npm run dev_server & npm run dev_static",
+    "dev": "npm run dev_server",
     "dev_server": "nodemon --harmony ./src/app.js",
-    "dev_static": "webpack --watch --config ./static/build/webpack.dev.config.js",
-    "start_static": "webpack --config ./static/build/webpack.prod.config.js",
     "start_server": "node ./src/app.js",
-    "start": "npm run start_static & npm run start_server"
+    "start": "npm run start_server"
   },
   "author": "xiaomu",
   "license": "ISC",
