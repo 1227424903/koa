@@ -20,11 +20,16 @@ const sessionMysqlConfig = {
   host: config.db.host
 }
 
+
+
 // 配置session中间件
 app.use(session({
   key: 'USER_SID',
   store: new MysqlStore(sessionMysqlConfig)
 }))
+
+
+
 
 // 配置控制台日志中间件
 app.use(koaLogger())

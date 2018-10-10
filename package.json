@@ -4,9 +4,9 @@
   "description": "koa2+mysql",
   "scripts": {
     "init_sql": "node ./src/sql/index.js",
-    "dev": "npm run dev_server",
     "dev_server": "nodemon --harmony ./src/app.js",
     "start_server": "node ./src/app.js",
+    "dev": "node-dev ./src/app.js",
     "start": "npm run start_server"
   },
   "author": "xiaomu",

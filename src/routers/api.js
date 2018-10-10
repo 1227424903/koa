@@ -3,7 +3,8 @@ const router = require('koa-router')()
 const apiCtrl = require('./../controllers/api')
 
 const routers = router
-.post('/login.json',apiCtrl.login)
-.post('/register.json',apiCtrl.register)
+.post('/login',apiCtrl.login)
+.post('/register',apiCtrl.register)
+.post('/loginout',apiCtrl.loginout)
 
 module.exports = routers
