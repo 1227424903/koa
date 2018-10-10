@@ -1,0 +1,33 @@
+{
+  "name": "notice_server",
+  "version": "1.0.0",
+  "description": "koa2+mysql",
+  "scripts": {
+    "init_sql": "node ./src/sql/index.js",
+    "dev": "npm run dev_server & npm run dev_static",
+    "dev_server": "nodemon --harmony ./src/app.js",
+    "dev_static": "webpack --watch --config ./static/build/webpack.dev.config.js",
+    "start_static": "webpack --config ./static/build/webpack.prod.config.js",
+    "start_server": "node ./src/app.js",
+    "start": "npm run start_static & npm run start_server"
+  },
+  "author": "xiaomu",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.0.1",
+    "koa-mysql-session": "0.0.2",
+    "koa-onerror": "^3.1.0",
+    "koa-router": "^7.2.1",
+    "koa-session-minimal": "^3.0.4",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.18.4",
+    "uuid": "^3.1.0"
+  },
+  "engines": {
+    "node": ">= 7.8.0",
+    "npm": ">= 4.2.0"
+  }
+}
