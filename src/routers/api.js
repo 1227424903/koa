@@ -6,5 +6,7 @@ const routers = router
 .post('/login',apiCtrl.login)
 .post('/register',apiCtrl.register)
 .post('/loginout',apiCtrl.loginout)
+.post('/video',apiCtrl.addvideo)
+.delete('/video',apiCtrl.delvideo)
 
 module.exports = routers
