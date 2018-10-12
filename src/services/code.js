@@ -14,4 +14,5 @@ module.exports = {
   video_empty_description: 10009, // description为空
   video_empty_id: 10010, // id为空
   video_illegal_id: 10011, // id不合法
+  video_empty: 10012, //video为空
 }

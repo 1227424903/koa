@@ -4,8 +4,6 @@ module.exports = {
 
   /**
    * 数据库创建用户
-   * @param  {object} model 用户数据模型
-   * @return {object}       mysql执行结果
    */
   async createUser(model) {
     let result = await dbUtils.insertData('user', model)
@@ -61,8 +59,6 @@ module.exports = {
 
     /**
    * 数据库创建video
-   * @param  {object} model 用户数据模型
-   * @return {object}       mysql执行结果
    */
   async createVideo(model) {
     let result = await dbUtils.insertData('video', model)
@@ -71,12 +67,42 @@ module.exports = {
 
    /**
    * 数据库删除video 软删除
-   * @param  {object} model 用户数据模型
-   * @return {object}       mysql执行结果
    */
   async delVideo(id) {
     let _sql = `
-    UPDATE video SET active = 0 WHERE id = "${id}"`
+    UPDATE video SET active = 0 WHERE id = "${id}" and active = 1`
+    let result = await dbUtils.query(_sql)
+    return result
+  },
+     /**
+   * 数据库获取video 
+   */
+  async getVideo(id) {
+    let _sql = `
+    SELECT * from video
+    where id="${id}" and active = 1 limit 1`
+    let result = await dbUtils.query(_sql)
+    return result
+  },
+   /**
+   * 更新video
+   */
+  async updateVideo(model) {
+    let changes = []
+    if(model.title !== undefined){
+      changes.push(`title = "${model.title}"`)
+    }
+    if(model.url !== undefined){
+      changes.push(`url = "${model.url}"`)
+    }
+    if(model.description !== undefined){
+      changes.push(`description = "${model.description}"`)
+    }
+    if(changes.length === 0){
+      return 'success'
+    }
+    let _sql = `
+    UPDATE video SET ${changes.join(',')}  WHERE id = "${model.id}" and active = 1`
     let result = await dbUtils.query(_sql)
     return result
   },

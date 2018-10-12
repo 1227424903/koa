@@ -115,4 +115,18 @@ module.exports = {
       return 'success'
     }
   },
+  async getVideo(formData) {
+    let data = await apiModel.getVideo(formData.id)
+    if (data && data.length > 0) {
+      return data
+    } else {
+      return 'error'
+    }
+  },
+  async updateVideo(updateVideoDto) {
+    let data = await apiModel.updateVideo(updateVideoDto)
+    if (data) {
+      return 'success'
+    }
+  }
 }

@@ -29,7 +29,7 @@ module.exports = {
       ctx.body = result
     }
   },
-  async loginout(ctx) {
+  async loginOut(ctx) {
     if (ctx.session.user) {
       ctx.session = null
       ctx.body = {
@@ -59,7 +59,7 @@ module.exports = {
     result.code = check.code
     ctx.body = result
   },
-  async addvideo(ctx){
+  async addVideo(ctx){
     if (ctx.session.user) {
       let result = Result.create()
       let formData = ctx.request.body
@@ -82,7 +82,7 @@ module.exports = {
       }
     }
   },
-  async delvideo(ctx){
+  async delVideo(ctx){
     if (ctx.session.user) {
       let result = Result.create()
       let formData = ctx.request.body
@@ -90,6 +90,54 @@ module.exports = {
       let check = await apiServ.checkVideoIdData(formData, ctx.session.user.id)
       if (check.success) {
           let data = await apiServ.delVideo(formData)
+          result.data = data
+      } else {
+        result.data = 'error'
+      }
+      result.code = check.code
+      ctx.body = result
+    } else {
+      ctx.body = {
+        data: "error",
+        code: code.user_not_login
+      }
+    }
+  },
+
+  async getVideo(ctx){
+    if(ctx.session.user){
+      let result = Result.create()
+      let formData = ctx.request.query
+      if(formData.id){
+        let data = await apiServ.getVideo(formData)
+        result.data = data
+        if(data === 'error'){
+          result.code = code.video_empty
+        } else {
+          result.code = code.success
+        }
+        ctx.body = result
+      }else{
+        ctx.body={
+          data: 'error',
+          code: code.video_empty_id
+        }
+      }
+    }else{
+      ctx.body={
+        data: 'error',
+        code: code.user_not_login
+      }
+    }
+  },
+  async updateVideo(ctx){
+    if (ctx.session.user) {
+      let result = Result.create()
+      let formData = ctx.request.body
+      // 数据校验
+      let check = await apiServ.checkVideoIdData(formData, ctx.session.user.id)
+      if (check.success) {
+          let data = await apiServ.updateVideo(formData)
           result.data = data
       } else {
         result.data = 'error'
