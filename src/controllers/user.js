@@ -7,7 +7,7 @@ module.exports = {
   async login(ctx) {
     if (ctx.session.user) {
       ctx.body = {
-        data: `${ctx.session.user.name} 已登录，请勿重复登录`,
+        data: `已登录，请勿重复登录`,
         code: code.success
       }
     } else {
@@ -16,10 +16,12 @@ module.exports = {
       console.log('api.js:' + JSON.stringify(result))
       // 数据校验
       let check = apiServ.checkLoginData(formData)
+      result.data = check.data
       if (check.success) {
         let user = await apiServ.login(formData)
         // 数据结果校验
         check = apiServ.checkLoginResultData(user)
+        result.data = check.data
         if (check.success) {
           result.data = user
           ctx.session.user = user
@@ -33,12 +35,12 @@ module.exports = {
     if (ctx.session.user) {
       ctx.session = null
       ctx.body = {
-        data: "success",
+        data: code.success_msg,
         code: code.success
       }
     } else {
       ctx.body = {
-        data: "error",
+        data: code.user_not_login_msg,
         code: code.user_not_login
       }
     }
@@ -49,8 +51,10 @@ module.exports = {
     let registerDto = RegisterDto.create(formData)
     // 数据校验
     let check = apiServ.checkRegisterBaesData(registerDto)
+    result.data = check.data
     if (check.success) {
       check = await apiServ.checkRegisterData(registerDto)
+      result.data = check.data
       if (check.success) {
         let data = await apiServ.register(registerDto)
         result.data = data

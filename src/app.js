@@ -1,6 +1,8 @@
 const router = require('./routers/index')
 const config = require('./config')
 
+var cors = require('koa-cors');
+
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
@@ -20,6 +22,7 @@ const sessionMysqlConfig = {
   host: config.db.host
 }
 
+app.use(cors());
 
 
 // 配置session中间件

@@ -16,13 +16,13 @@ module.exports = {
           let data = await apiServ.addVideo(videoDto)
           result.data = data
       } else {
-        result.data = 'error'
+        result.data = check.data
       }
       result.code = check.code
       ctx.body = result
     } else {
       ctx.body = {
-        data: "error",
+        data: code.user_not_login_msg,
         code: code.user_not_login
       }
     }
@@ -37,13 +37,13 @@ module.exports = {
           let data = await apiServ.delVideo(formData)
           result.data = data
       } else {
-        result.data = 'error'
+        result.data = check.data
       }
       result.code = check.code
       ctx.body = result
     } else {
       ctx.body = {
-        data: "error",
+        data: code.user_not_login_msg,
         code: code.user_not_login
       }
     }
@@ -53,16 +53,17 @@ module.exports = {
     if(ctx.session.user){
       let result = Result.create()
         let data = await apiServ.getVideo()
-        result.data = data
         if(data === 'error'){
           result.code = code.video_empty
+          result.data = code.video_empty_msg
         } else {
           result.code = code.success
+          result.data = data
         }
         ctx.body = result
     }else{
       ctx.body={
-        data: 'error',
+        data: code.user_not_login_msg,
         code: code.user_not_login
       }
     }
@@ -77,13 +78,13 @@ module.exports = {
           let data = await apiServ.updateVideo(formData)
           result.data = data
       } else {
-        result.data = 'error'
+        result.data = check.data
       }
       result.code = check.code
       ctx.body = result
     } else {
       ctx.body = {
-        data: "error",
+        data: code.user_not_login_msg,
         code: code.user_not_login
       }
     }
