@@ -22,7 +22,9 @@ const sessionMysqlConfig = {
   host: config.db.host
 }
 
-app.use(cors());
+app.use(cors({
+  credentials: true
+}));
 
 
 // 配置session中间件

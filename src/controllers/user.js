@@ -2,6 +2,7 @@ const apiServ = require('./../services/user')
 const Result = require('./../vo/result')
 const code = require('./../services/code')
 const RegisterDto = require('./../dto/register')
+var urlencode = require('urlencode')
 
 module.exports = {
   async login(ctx) {
@@ -13,7 +14,6 @@ module.exports = {
     } else {
       let result = Result.create()
       let formData = ctx.request.body
-      console.log('api.js:' + JSON.stringify(result))
       // 数据校验
       let check = apiServ.checkLoginData(formData)
       result.data = check.data
@@ -23,8 +23,11 @@ module.exports = {
         check = apiServ.checkLoginResultData(user)
         result.data = check.data
         if (check.success) {
-          result.data = user
-          ctx.session.user = user
+          result.data = user 
+          let sessionUser = user
+          sessionUser.name = urlencode(user.name)
+          sessionUser.nick = urlencode(user.nick)
+          ctx.session.user = sessionUser
         }
       }
       result.code = check.code

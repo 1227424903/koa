@@ -2,6 +2,7 @@ const apiServ = require('./../services/video')
 const Result = require('./../vo/result')
 const code = require('./../services/code')
 const VideoDto = require('./../dto/video')
+var urlencode = require('urlencode')
 
 module.exports = {
   async addVideo(ctx){
@@ -9,6 +10,7 @@ module.exports = {
       let result = Result.create()
       let formData = ctx.request.body
       formData.userId = ctx.session.user.id
+      formData.nick = urlencode.decode(ctx.session.user.nick)
       let videoDto = VideoDto.create(formData)
       // 数据校验
       let check = apiServ.checkVideoBaesData(videoDto)

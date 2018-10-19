@@ -7,6 +7,7 @@ module.exports = {
     obj.url = formData.url
     obj.description = formData.description
     obj.user_id = formData.userId
+    obj.nick = formData.nick
     obj.click = 0
     obj.comment = 0
     obj.create_time = time

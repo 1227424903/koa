@@ -2,7 +2,6 @@
 const router = require('koa-router')()
 
 router.get('*', (ctx) => {
-  console.log('wwrrssrw')
   ctx.body = '拒绝访问！'
 
 }).post('*', (ctx) => {
